@@ -1,7 +1,7 @@
 package main
 
-var moveList = Points{Point{0,-1},Point{-1,0},Point{1,0},Point{0,1}}
-// var moveList = Points{Point{0, -1}, Point{-1, 0}, Point{1, 0}, Point{0, 1}, Point{1, -1}, Point{-1, 1}, Point{1, 1}, Point{-1, -1}}
+// var moveList = Points{Point{0,-1},Point{-1,0},Point{1,0},Point{0,1}}
+var moveList = Points{Point{0, -1}, Point{-1, 0}, Point{1, 0}, Point{0, 1}, Point{1, -1}, Point{-1, 1}, Point{1, 1}, Point{-1, -1}}
 
 func AStar(matrix []Point, noize []Point, start Point, finish Point) []Point {
 	var openlist EngueuePoint = EngueuePoint{}
@@ -35,7 +35,7 @@ func expandNode(pData PointData, matrix Points, noize Points, openlist EngueuePo
 		if closedlist.Contains(expPoint) {
 			continue
 		}
-		lenghtFromStart := pData.LengthFromStart + 1
+		lenghtFromStart := pData.LengthFromStart + nearPointLenght(moveDiff)
 		inOpenList, expPointData := openlist.ContainsPoint(expPoint)
 
 		if inOpenList && lenghtFromStart >= expPointData.LengthFromStart {
@@ -52,4 +52,12 @@ func expandNode(pData PointData, matrix Points, noize Points, openlist EngueuePo
 	}
 
 	return openlist
+}
+
+
+func nearPointLenght(diff Point) int{
+  if(abs(diff.X) + abs(diff.Y) > 1){
+    return 14
+  }
+  return 10
 }
